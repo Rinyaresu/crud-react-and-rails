@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import produce from "immer";
 import { RootState } from "../../app/store";
-import { fetchPosts, createPost, destroyPost } from "./postAPI";
+import { fetchPosts, createPost, destroyPost, updatePost } from "./postAPI";
 
 export enum Statuses {
   Initial = "Not Fetched",
@@ -27,6 +27,10 @@ export interface PostState {
   updated_at?: any;
 }
 
+export interface PostUpdateData {
+  post_id: number;
+  post: PostState;
+}
 export interface PostDeleteData {
   post: {
     post_id: number;
@@ -63,6 +67,14 @@ export const createPostAsync = createAsyncThunk(
   "posts/createPost",
   async (payload: PostFormData) => {
     const response = await createPost(payload);
+    return response;
+  }
+);
+
+export const updatePostAsync = createAsyncThunk(
+  "posts/updatePost",
+  async (payload: PostFormData) => {
+    const response = await updatePost(payload);
     return response;
   }
 );
@@ -122,6 +134,30 @@ export const postSlice = createSlice({
         });
       })
 
+      /*  Section */
+
+      .addCase(updatePostAsync.pending, (state) => {
+        return produce(state, (draftState) => {
+          draftState.status = Statuses.Loading;
+        });
+      })
+
+      .addCase(updatePostAsync.fulfilled, (state, action) => {
+        return produce(state, (draftState) => {
+          const index = draftState.posts.findIndex(
+            (post) => post.id === action.payload.post.id
+          );
+          draftState.posts[index] = action.payload;
+          draftState.status = Statuses.UpToDate;
+        });
+      })
+
+      .addCase(updatePostAsync.rejected, (state) => {
+        return produce(state, (draftState) => {
+          draftState.status = Statuses.Error;
+        });
+      })
+
       /* Destroy Section */
 
       .addCase(destroyPostAsync.pending, (state) => {
@@ -132,7 +168,7 @@ export const postSlice = createSlice({
 
       .addCase(destroyPostAsync.fulfilled, (state, action) => {
         return produce(state, (draftState) => {
-          draftState.posts = import { fetchPosts, createPost, destroyPost } from "./postAPI";action.payload;
+          draftState.posts = action.payload;
           draftState.status = Statuses.UpToDate;
         });
       })
