@@ -10,13 +10,13 @@ function Post(props: any) {
     <div>
       <div className="row">
         <div className="col-8">{titleElement}</div>
-        <div className="col-4">{/** TODO: Button Group */}</div>
+        <div className="col-4">{/* TODO: Button Group */}</div>
       </div>
       <div className="row">
         <div className="col-8">{bodyElement}</div>
       </div>
       <div className="row">
-        <div className="col-2">{/** TODO: Edit submit button */}</div>
+        <div className="col-2">{/* TODO: Edit submit button */}</div>
       </div>
     </div>
   );
