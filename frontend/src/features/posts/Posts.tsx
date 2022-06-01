@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import Post from "./Post";
+import PostForm from "./PostForm";
 import {
   fetchPostsAsync,
   selectPosts,
@@ -26,16 +27,13 @@ function Posts() {
       <div className="card">
         <div className="card-body">
           <h3>{status}</h3>
-          {/** TODO: FORM */}
+          <PostForm />
           {posts &&
             posts.length > 0 &&
             posts.map((post) => {
               return (
                 <div key={post.id} style={{ margin: "5em" }}>
-                  <Post
-                    dispatch={dispatch}
-                    post={post}
-                  />
+                  <Post dispatch={dispatch} post={post} />
                 </div>
               );
             })}
