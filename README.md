@@ -1,24 +1,12 @@
-# README
+# Crud
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Project designed to learn how to use react with ruby on rails
 
-Things you may want to cover:
+## Used Technologies
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Ruby 3.1.2
+- Ruby on Rails 7
+- Sqlite3
+- React
+- Redux
+- TypeScript
